@@ -8,12 +8,15 @@ import { HomeService } from './home.service';
 })
 export class HomeComponent implements OnInit {
 
+  private characters: any[];
+
   constructor(private homeService: HomeService) {
     // console.log(this.homeService.getCharacters());
   }
 
   ngOnInit() {
     // teste
+    // this.getCharacters('iron');
   }
 
   public getCharacters(name) {
