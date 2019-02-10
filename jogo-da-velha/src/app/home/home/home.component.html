@@ -15,7 +15,9 @@
         <div class="casa" id="9"></div>
     </div>
 </div>
-<div class="col-md-12 text-center">
+<div class="col-md-12 text-center mt-1">
+    <h4 *ngIf="endGame" id="resultado"> Parabéns Player {{ vencedor }}, você venceu a partida!</h4>
+  </div>
+<div class="col-md-12 text-center mt-4 mb-4">
   <button class="btn btn-primary" (click)="newGame();"> Reiniciar Partida </button>
 </div>
-<div id="resultado"></div>
