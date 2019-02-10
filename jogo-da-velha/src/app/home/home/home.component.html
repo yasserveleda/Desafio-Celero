@@ -1,18 +1,21 @@
-
-
-<h4>Escolha seu personagem Marvel</h4>
-<input type="text" 
-  ng-model="asyncSelected" 
-  placeholder="Search for you character" 
-  typeahead="characters for characters in getCharacters($viewValue)" 
-  typeahead-loading="loadingCharacters"  
-  typeahead-on-select="selectCharacter($item);asyncSelected=''" 
-  class="form-control"
-/>
-<i ng-show="loadingCharacters" class="glyphicon glyphicon-refresh"></i>
-
-<div ng-if="showCharInfo">
-  <div ng-if="char.thumb" class="thumbnail"><img src="{{char.thumb}}" /></div>
-  <div class="charName"><b>{{char.name}}</b></div>
-  <div class="charDesc">{{char.desc}}</div>
+<div id="jogo">
+    <div class="linha">
+        <div class="casa" id="1" square="1"></div>
+        <div class="casa" id="2" square="2"></div>
+        <div class="casa" id="3" square="3"></div>
+    </div>
+    <div class="linha">
+        <div class="casa" id="4"></div>
+        <div class="casa" id="5"></div>
+        <div class="casa" id="6"></div>
+    </div>
+    <div class="linha">
+        <div class="casa" id="7"></div>
+        <div class="casa" id="8"></div>
+        <div class="casa" id="9"></div>
+    </div>
 </div>
+<div class="col-md-12 text-center">
+  <button class="btn btn-primary" (click)="newGame();"> Reiniciar Partida </button>
+</div>
+<div id="resultado"></div>
