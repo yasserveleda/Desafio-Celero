@@ -1,19 +1,19 @@
 #jogo{
-    width:603px;
-    height:600px;
-    // border:solid 3px;
+    width:452px;
+    height:450px;
+    border: 1px solid;
     margin: 50px auto;
 
     .linha{
-        height:200px;
+        height:150px;
         border-bottom:solid 1px;
 
         .casa{
-            width:200px;
+            width:150px;
             height:100%;
             border: 1px solid;
             float:left;
-            background-size: 200px;
+            background-size: 150px;
         }
     }
 }

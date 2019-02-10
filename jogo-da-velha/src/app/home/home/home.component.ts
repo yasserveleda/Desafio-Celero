@@ -33,13 +33,13 @@ export class HomeComponent implements OnInit {
         if (this.player === 1) {
           document.getElementById(id).style.backgroundImage = `url(${this.img_1})`;
           this.tabuleiro[id] = 1;
-          console.log(this.tabuleiro.length);
+          // console.log(this.tabuleiro.length);
           this.player = 2;
           this.verificarFimDeJogo();
         } else {
           document.getElementById(id).style.backgroundImage = `url(${this.img_2})`;
           this.tabuleiro[id] = 2;
-          console.log(this.tabuleiro.length);
+          // console.log(this.tabuleiro.length);
           this.player = 1;
           this.verificarFimDeJogo();
         }
