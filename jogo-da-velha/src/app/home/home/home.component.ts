@@ -27,25 +27,32 @@ export class HomeComponent implements OnInit {
 
   @HostListener('click', ['$event'])
   onClick(event) {
-    if (!this.endGame) {
-      if (`casa` === event.target.className) {
+    // verifica se o click é no tabuleiro
+    if (`casa` === event.target.className) {
+      // Verifica se a partida esta em jogo
+      if (!this.endGame) {
         const id = event.target.id;
-        if (this.player === 1) {
-          document.getElementById(id).style.backgroundImage = `url(${this.img_1})`;
-          this.tabuleiro[id] = 1;
-          // console.log(this.tabuleiro.length);
-          this.player = 2;
-          this.verificarFimDeJogo();
-        } else {
-          document.getElementById(id).style.backgroundImage = `url(${this.img_2})`;
-          this.tabuleiro[id] = 2;
-          // console.log(this.tabuleiro.length);
-          this.player = 1;
+        const square = document.getElementById(id);
+        // verifica se o espaco esta vago
+        if (!square.style.backgroundImage || square.style.backgroundImage === `none`) {
+          // verifica o jogador
+          if (this.player === 1) {
+            square.style.backgroundImage = `url(${this.img_1})`;
+            this.tabuleiro[id] = 1;
+            // console.log(this.tabuleiro.length);
+            this.player = 2;
+          } else {
+            square.style.backgroundImage = `url(${this.img_2})`;
+            this.tabuleiro[id] = 2;
+            // console.log(this.tabuleiro.length);
+            this.player = 1;
+          }
+          // verifica o termino da partida
           this.verificarFimDeJogo();
         }
+      } else {
+        console.log(`Fim de Jogo`);
       }
-    } else {
-      console.log(`Fim de Jogo`);
     }
   }
 
