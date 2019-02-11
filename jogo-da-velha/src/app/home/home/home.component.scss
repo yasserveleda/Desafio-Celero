@@ -1,3 +1,25 @@
+#header-game {
+    width: 100%;
+    min-height: 100px;
+    background: #cccccc;
+
+    #scoreboard {
+        display: flex;
+
+        .character-score {
+            margin: 0 auto;
+            text-align: right;
+            
+            &:first-child {
+                text-align: left;
+            }
+        }
+    }
+
+    // background-image: url(http://x.annihil.us/u/prod/marvel/i/mg/8/b0/537ba702ad5b3.gif);
+    // background-size: 400px;
+
+}
 #jogo{
     width:452px;
     height:450px;
@@ -14,10 +36,11 @@
             border: 1px solid;
             float:left;
             background-size: 150px;
+            cursor: pointer;
         }
     }
 }
 .character {
-    height: 200px;
-    width: 200px;
+    height: 125px;
+    width: 125px;
 }

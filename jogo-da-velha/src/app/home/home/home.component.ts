@@ -38,25 +38,48 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() { }
 
-  search = (text$: Observable<string>) =>
+  search_1 = (text$: Observable<string>) =>
     text$.pipe(
       tap(() => {
+        // this.secondModelCharacter.replace(/\s+/g, '')
+        if (this.firstModelCharacter && this.firstModelCharacter.length >= 3) {
+          this.getCharacters(this.firstModelCharacter, 1);
+        }
+      }),
+      debounceTime(500),
+      map(term => term === '' ? []
+        : this.firstListCharacter.filter(v => v.name))
+    )
+
+  search_2 = (text$: Observable<string>) =>
+    text$.pipe(
+      tap(() => {
+        // this.secondModelCharacter.replace(/\s+/g, '')
         if (this.secondModelCharacter && this.secondModelCharacter.length >= 3) {
-          this.getCharacters(this.secondModelCharacter);
+          this.getCharacters(this.secondModelCharacter, 2);
         }
       }),
       debounceTime(500),
       map(term => term === '' ? []
         : this.secondListCharacter.filter(v => v.name))
-    )
+  )
 
   formatter = (x: {name: string}) => x.name;
 
-  characterSelect (event) {
+  // characterSelect (event), lista {
+  characterSelect (event, numberCharacter) {
     if (event && event.item) {
-      this.secondCharacter = event.item;
-      this.secondSelected = true;
-      this.secondImagePath = `${this.secondCharacter.thumbnail.path}.${this.secondCharacter.thumbnail.extension}`;
+      if (numberCharacter === 1) {
+        this.firstCharacter = event.item;
+        this.firstSelected = true;
+        this.firstImagePath = `${this.firstCharacter.thumbnail.path}.${this.firstCharacter.thumbnail.extension}`;
+        this.firstListCharacter = [];
+      } else {
+        this.secondCharacter = event.item;
+        this.secondSelected = true;
+        this.secondImagePath = `${this.secondCharacter.thumbnail.path}.${this.secondCharacter.thumbnail.extension}`;
+        this.secondListCharacter = [];
+      }
     }
   }
 
@@ -91,26 +114,21 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  searchCharacters(character) {
-    if (this.firstCharacter) {
-      this.getCharacters(this.firstCharacter);
-    }
-  }
-
-  getCharacters(name) {
-    console.log(name);
+  getCharacters(name, numberList) {
     this.homeService.getCharacters(name).subscribe(
       response => {
-        // console.log(response);
         const responseList = response.data.results;
+
         console.log(responseList);
-        this.secondListCharacter = responseList;
-        // responseList.map(function(item) {
-        //   console.log(item.name);
-        // });
+
+        if (numberList === 1) {
+          this.firstListCharacter = responseList;
+        } else {
+          this.secondListCharacter = responseList;
+        }
+
       },
       error => {
-        // Usar dados mock em ambiente local
         console.log(error);
       }
     );
@@ -120,10 +138,10 @@ export class HomeComponent implements OnInit {
     if (this.tabuleiro) {
       if (this.tabuleiro[a] || this.tabuleiro[b] || this.tabuleiro[c]) {
         if (this.tabuleiro[a] === this.tabuleiro[b] && this.tabuleiro[b] === this.tabuleiro[c] ) {
-          if (this.tabuleiro[a] === 1) {
-            this.vencedor = 1;
+          if (this.tabuleiro[a] === 1 && this.firstCharacter) {
+            this.vencedor = this.firstCharacter;
           } else {
-            this.vencedor = 2;
+            this.vencedor = this.secondCharacter;
           }
           return true;
         }
@@ -136,7 +154,8 @@ export class HomeComponent implements OnInit {
       this.casasIguais(1, 4, 7) || this.casasIguais(2, 5, 8) || this.casasIguais(3, 6, 9) ||
       this.casasIguais(1, 5, 9) || this.casasIguais(3, 5, 7)) {
         this.endGame = !this.endGame;
-        alert(`Parabens Player: ${this.vencedor}`);
+
+        alert(`Parabens: ${this.vencedor.name}`);
     }
     // if (this.tabuleiro.length === 10) {
     //   alert(`DEU VEIA`);

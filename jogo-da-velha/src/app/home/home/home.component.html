@@ -1,29 +1,30 @@
-<div class="col-md-5 text-center mt-4 mb-4"> 
-  <h4>Player 1: </h4>
+<div id="header-game" class="">
+  <div id="scoreboard" class="container-fluid pt-3 pb-3">
+    <div class="col-md-4 character-score"> 
+        <img class="character rounded-circle" *ngIf="firstSelected" [(src)]="firstImagePath">
+        <h5 *ngIf="firstSelected"> {{ firstCharacter.name }} </h5>
 
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Digite o nome do personagem" 
-    (input)="firstCharacter = $event.target.value">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button" (click)="searchCharacters(firstCharacter)">Buscar</button>
+        <ng-template #rt let-r="result" let-t="term">
+          <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+        </ng-template>
+        
+        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-3" *ngIf="!firstSelected" [(ngModel)]="firstModelCharacter" [ngbTypeahead]="search_1" [resultTemplate]="rt"
+          [inputFormatter]="formatter" (selectItem)="characterSelect($event, 1)"/>
     </div>
+
+    <div class="col-md-4 character-score"> 
+        <img class="character rounded-circle" *ngIf="secondSelected" [(src)]="secondImagePath">
+        <h5 *ngIf="secondSelected"> {{ secondCharacter.name }} </h5>
+
+        <ng-template #rt let-r="result" let-t="term">
+          <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+        </ng-template>
+          
+        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-3" *ngIf="!secondSelected" [(ngModel)]="secondModelCharacter" [ngbTypeahead]="search_2" [resultTemplate]="rt"
+          [inputFormatter]="formatter" (selectItem)="characterSelect($event, 2)"/>
+    </div>
+
   </div>
-</div>
-
-<div class="col-md-5 text-center mt-4 mb-4"> 
-  <!-- <h4>Player 2: </h4> -->
-
-  <ng-template #rt let-r="result" let-t="term">
-    <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-  </ng-template>
-  
-  <label for="typeahead-template">Selecione o personagem:</label>
-  <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="secondModelCharacter" [ngbTypeahead]="search" [resultTemplate]="rt"
-    [inputFormatter]="formatter" (selectItem)="characterSelect($event)"/>
-  <hr>
-  <h5 *ngIf="secondSelected"> {{ secondCharacter.name }} </h5>
-  <img class="character" *ngIf="secondSelected" [(src)]="secondImagePath">
-    
 </div>
 
 <div id="jogo">
@@ -44,7 +45,7 @@
     </div>
 </div>
 <div class="col-md-12 text-center mt-1">
-    <h4 *ngIf="endGame" id="resultado"> Parabéns Player {{ vencedor }}, você venceu a partida!</h4>
+    <h4 *ngIf="endGame" id="resultado"> Parabéns {{ vencedor.name }}, você venceu a partida!</h4>
   </div>
 <div class="col-md-12 text-center mt-4 mb-4">
   <button class="btn btn-primary" (click)="newGame();"> Reiniciar Partida </button>
