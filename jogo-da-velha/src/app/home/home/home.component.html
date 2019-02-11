@@ -1,3 +1,31 @@
+<div class="row">
+  <div class="col-md-6 text-center mt-4 mb-4"> 
+    <h4>Player 1: </h4>
+
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Digite o nome do personagem" 
+      (input)="firstCharacter = $event.target.value">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="searchCharacters(firstCharacter)">Buscar</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 text-center mt-4 mb-4"> 
+    <h4>Player 2: </h4>
+
+    <ng-template #rt let-r="result" let-t="term">
+        <img [src]="'https://upload.wikimedia.org/wikipedia/commons/thumb/' + r['flag']" class="mr-1" style="width: 16px">
+        <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+      </ng-template>
+      
+      <label for="typeahead-template">Search for a state:</label>
+      <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" [resultTemplate]="rt"
+        [inputFormatter]="formatter" />
+      <hr>
+      <pre>Model: {{ model | json }}</pre>
+  </div>
+</div>
+
 <div id="jogo">
     <div class="linha">
         <div class="casa" id="1" square="1"></div>
