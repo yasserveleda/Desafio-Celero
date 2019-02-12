@@ -42,6 +42,9 @@
   <h4 *ngIf="!selectedCharacters" id="resultado"> Selecione os personagens para iniciar a partida!</h4>
   <h4 *ngIf="endGame && selectedCharacters" id="resultado"> Parabéns {{ vencedor.name }}, você venceu a partida!</h4>
 </div>
+<div class="col-md-12 text-center mt-4 mb-4">
+  <button *ngIf="endGame && selectedCharacters" class="btn btn-primary" (click)="newGame();"> Reiniciar Partida </button>
+</div>
 
 <div id="jogo">
     <div class="linha">
@@ -59,8 +62,4 @@
         <div class="casa" id="8"></div>
         <div class="casa" id="9"></div>
     </div>
-</div>
-
-<div class="col-md-12 text-center mt-4 mb-4">
-  <button class="btn btn-primary" (click)="newGame();"> Reiniciar Partida </button>
 </div>
