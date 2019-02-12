@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   player = 1;
   tabuleiro = [];
   vencedor;
-  endGame = false;
+  endGame = true;
+  selectedCharacters = false;
 
   // First Character
   firstCharacter;
@@ -81,6 +82,11 @@ export class HomeComponent implements OnInit {
         this.secondSelected = true;
         this.secondImagePath = `${this.secondCharacter.thumbnail.path}.${this.secondCharacter.thumbnail.extension}`;
         this.secondListCharacter = [];
+      }
+
+      if (this.firstCharacter && this.secondCharacter) {
+        this.selectedCharacters = true;
+        this.endGame = false;
       }
     }
   }
@@ -158,8 +164,7 @@ export class HomeComponent implements OnInit {
       this.casasIguais(1, 4, 7) || this.casasIguais(2, 5, 8) || this.casasIguais(3, 6, 9) ||
       this.casasIguais(1, 5, 9) || this.casasIguais(3, 5, 7)) {
         this.endGame = !this.endGame;
-
-        alert(`Parabens: ${this.vencedor.name}`);
+        // alert(`Parabens: ${this.vencedor.name}`);
     }
     // if (this.tabuleiro.length === 10) {
     //   alert(`DEU VEIA`);

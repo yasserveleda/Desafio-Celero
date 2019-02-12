@@ -10,7 +10,7 @@
           <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
         </ng-template>
         
-        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-3" *ngIf="!firstSelected" [(ngModel)]="firstModelCharacter" [ngbTypeahead]="search_1" [resultTemplate]="rt"
+        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-5" *ngIf="!firstSelected" [(ngModel)]="firstModelCharacter" [ngbTypeahead]="search_1" [resultTemplate]="rt"
           [inputFormatter]="formatter" (selectItem)="characterSelect($event, 1)"/>
     </div>
 
@@ -31,7 +31,7 @@
           <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
         </ng-template>
           
-        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-3" *ngIf="!secondSelected" [(ngModel)]="secondModelCharacter" [ngbTypeahead]="search_2" [resultTemplate]="rt"
+        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-5" *ngIf="!secondSelected" [(ngModel)]="secondModelCharacter" [ngbTypeahead]="search_2" [resultTemplate]="rt"
           [inputFormatter]="formatter" (selectItem)="characterSelect($event, 2)"/>
     </div>
 
@@ -39,7 +39,8 @@
 </div>
 
 <div class="col-md-12 text-center mt-5">
-  <h4 *ngIf="endGame" id="resultado"> Parabéns {{ vencedor.name }}, você venceu a partida!</h4>
+  <h4 *ngIf="!selectedCharacters" id="resultado"> Selecione os personagens para iniciar a partida!</h4>
+  <h4 *ngIf="endGame && selectedCharacters" id="resultado"> Parabéns {{ vencedor.name }}, você venceu a partida!</h4>
 </div>
 
 <div id="jogo">
