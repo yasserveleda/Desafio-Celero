@@ -9,19 +9,15 @@ import {debounceTime, map, tap} from 'rxjs/operators';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private homeService: HomeService) {
-    // this.getCharacters(``);
-  }
-
   characters: any[];
   img_1 = `./assets/img/1.png`;
   img_2 = `./assets/img/2.png`;
   player = 1;
-  tabuleiro = [];
-  vencedor;
+  board = [];
+  winner;
   endGame = true;
   selectedCharacters = false;
+  gameTie = false;
 
   // First Character
   firstCharacter;
@@ -39,13 +35,17 @@ export class HomeComponent implements OnInit {
   secondListCharacter = [];
   secondScore = 0;
 
+  // listGetCharacters = [];
+  // modelCharacter;
+
+  constructor(private homeService: HomeService) { }
+
   ngOnInit() { }
 
   search_1 = (text$: Observable<string>) =>
     text$.pipe(
       tap(() => {
-        // this.secondModelCharacter.replace(/\s+/g, '')
-        if (this.firstModelCharacter && this.firstModelCharacter.length >= 3) {
+        if (this.firstModelCharacter && this.firstModelCharacter.length >= 2) {
           this.getCharacters(this.firstModelCharacter, 1);
         }
       }),
@@ -57,8 +57,7 @@ export class HomeComponent implements OnInit {
   search_2 = (text$: Observable<string>) =>
     text$.pipe(
       tap(() => {
-        // this.secondModelCharacter.replace(/\s+/g, '')
-        if (this.secondModelCharacter && this.secondModelCharacter.length >= 3) {
+        if (this.secondModelCharacter && this.secondModelCharacter.length >= 2) {
           this.getCharacters(this.secondModelCharacter, 2);
         }
       }),
@@ -69,7 +68,6 @@ export class HomeComponent implements OnInit {
 
   formatter = (x: {name: string}) => x.name;
 
-  // characterSelect (event), lista {
   characterSelect (event, numberCharacter) {
     if (event && event.item) {
       if (numberCharacter === 1) {
@@ -93,31 +91,24 @@ export class HomeComponent implements OnInit {
 
   @HostListener('click', ['$event'])
   onClick(event) {
-    // verifica se o click é no tabuleiro
-    if (`casa` === event.target.className) {
-      // Verifica se a partida esta em jogo
+    const clickedOnCell = event.target.className;
+    if (`cell` === clickedOnCell) {
       if (!this.endGame) {
         const id = event.target.id;
         const square = document.getElementById(id);
-        // verifica se o espaco esta vago
-        if (!square.style.backgroundImage || square.style.backgroundImage === `none`) {
-          // verifica o jogador
+        const emptyCell = (!square.style.backgroundImage || square.style.backgroundImage === `none`);
+        if (emptyCell) {
           if (this.player === 1) {
             square.style.backgroundImage = `url(${this.img_1})`;
-            this.tabuleiro[id] = 1;
-            // console.log(this.tabuleiro.length);
+            this.board[id] = 1;
             this.player = 2;
           } else {
             square.style.backgroundImage = `url(${this.img_2})`;
-            this.tabuleiro[id] = 2;
-            // console.log(this.tabuleiro.length);
+            this.board[id] = 2;
             this.player = 1;
           }
-          // verifica o termino da partida
-          this.verificarFimDeJogo();
+          this.verifyEndGame();
         }
-      } else {
-        console.log(`Fim de Jogo`);
       }
     }
   }
@@ -126,15 +117,11 @@ export class HomeComponent implements OnInit {
     this.homeService.getCharacters(name).subscribe(
       response => {
         const responseList = response.data.results;
-
-        console.log(responseList);
-
         if (numberList === 1) {
           this.firstListCharacter = responseList;
         } else {
           this.secondListCharacter = responseList;
         }
-
       },
       error => {
         console.log(error);
@@ -142,15 +129,15 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  casasIguais(a, b, c) {
-    if (this.tabuleiro) {
-      if (this.tabuleiro[a] || this.tabuleiro[b] || this.tabuleiro[c]) {
-        if (this.tabuleiro[a] === this.tabuleiro[b] && this.tabuleiro[b] === this.tabuleiro[c] ) {
-          if (this.tabuleiro[a] === 1 && this.firstCharacter) {
-            this.vencedor = this.firstCharacter;
+  match(a, b, c) {
+    if (this.board) {
+      if (this.board[a] || this.board[b] || this.board[c]) {
+        if (this.board[a] === this.board[b] && this.board[b] === this.board[c] ) {
+          if (this.board[a] === 1 && this.firstCharacter) {
+            this.winner = this.firstCharacter;
             this.firstScore++;
           } else {
-            this.vencedor = this.secondCharacter;
+            this.winner = this.secondCharacter;
             this.secondScore++;
           }
           return true;
@@ -159,28 +146,37 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  verificarFimDeJogo() {
-    if (this.casasIguais(1, 2, 3) || this.casasIguais(4, 5, 6) || this.casasIguais(7, 8, 9) ||
-      this.casasIguais(1, 4, 7) || this.casasIguais(2, 5, 8) || this.casasIguais(3, 6, 9) ||
-      this.casasIguais(1, 5, 9) || this.casasIguais(3, 5, 7)) {
+  verifyEndGame() {
+    if (this.match(1, 2, 3) || this.match(4, 5, 6) || this.match(7, 8, 9) ||
+      this.match(1, 4, 7) || this.match(2, 5, 8) || this.match(3, 6, 9) ||
+      this.match(1, 5, 9) || this.match(3, 5, 7)) {
         this.endGame = !this.endGame;
-        // alert(`Parabens: ${this.vencedor.name}`);
+    } else if (this.busyHouses()) {
+      this.endGame = !this.endGame;
+      this.gameTie = !this.gameTie;
     }
-    // if (this.tabuleiro.length === 10) {
-    //   alert(`DEU VEIA`);
-    // }
   }
 
   newGame() {
-    console.log(`NOVO JOGOOOO`);
     this.player = 1;
-    this.tabuleiro = [];
-    this.vencedor = null;
+    this.board = [];
+    this.winner = null;
     this.endGame = false;
+    this.gameTie = false;
 
     for (let id = 1; id < 10; id++) {
       document.getElementById(`${id}`).style.backgroundImage = `none`;
     }
+  }
+
+  busyHouses() {
+    let busyHouses = 0;
+    for (let i = 0; i < this.board.length; i++) {
+      if (this.board[i]) {
+        busyHouses++;
+      }
+    }
+    return busyHouses === 9 ? true : false;
   }
 
 }
