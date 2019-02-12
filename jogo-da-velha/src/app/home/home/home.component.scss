@@ -1,6 +1,6 @@
 #header-game {
     width: 100%;
-    min-height: 100px;
+    min-height: 200px;
     background: #cccccc;
 
     #scoreboard {
@@ -13,10 +13,43 @@
             &:first-child {
                 text-align: left;
             }
+
+            &:last-child {
+                .card-c { 
+                    float: right;
+                }
+            }
+
+            .card-c {
+                width: 200px;
+                text-align: center;
+
+                h5 {
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: bold;
+                    color: #FFFFFF;                
+                }
+            }
+        }
+
+        .score {
+            img {
+                width: 130px;
+                // margin-top: 20px;
+                margin-top: -30px;
+            }
+
+            p {
+                font-size: 65px;
+                font-family: 'Nunito', sans-serif;
+                color: #2C2C2C;
+                margin-top: 35px;
+                display: inline-block;
+            }
         }
     }
 
-    // background-image: url(http://x.annihil.us/u/prod/marvel/i/mg/8/b0/537ba702ad5b3.gif);
+    // background-image: url(http://www.jeffstyle.com/img/work/portfolio-marvel_com-bg.gif);
     // background-size: 400px;
 
 }

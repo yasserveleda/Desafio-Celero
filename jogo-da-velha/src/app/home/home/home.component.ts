@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   firstSelected;
   firstImagePath;
   firstListCharacter = [];
+  firstScore = 0;
 
   // Second Character
   secondCharacter;
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
   secondSelected;
   secondImagePath;
   secondListCharacter = [];
+  secondScore = 0;
 
   ngOnInit() { }
 
@@ -140,8 +142,10 @@ export class HomeComponent implements OnInit {
         if (this.tabuleiro[a] === this.tabuleiro[b] && this.tabuleiro[b] === this.tabuleiro[c] ) {
           if (this.tabuleiro[a] === 1 && this.firstCharacter) {
             this.vencedor = this.firstCharacter;
+            this.firstScore++;
           } else {
             this.vencedor = this.secondCharacter;
+            this.secondScore++;
           }
           return true;
         }
