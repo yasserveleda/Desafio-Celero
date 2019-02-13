@@ -10,7 +10,7 @@
           <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
         </ng-template>
         
-        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-5" *ngIf="!firstSelected" [(ngModel)]="firstModelCharacter" [ngbTypeahead]="search_1" [resultTemplate]="rt"
+        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-5" *ngIf="!firstSelected" [(ngModel)]="firstModelCharacter" [ngbTypeahead]="search" [resultTemplate]="rt"
           [inputFormatter]="formatter" (selectItem)="characterSelect($event, 1)"/>
     </div>
 
@@ -29,7 +29,7 @@
           <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
         </ng-template>
           
-        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-5" *ngIf="!secondSelected" [(ngModel)]="secondModelCharacter" [ngbTypeahead]="search_2" [resultTemplate]="rt"
+        <input id="typeahead-template" placeholder="Iron Man, Hulk, Thor, etc ..." type="text" class="form-control mt-5" *ngIf="!secondSelected" [(ngModel)]="secondModelCharacter" [ngbTypeahead]="search" [resultTemplate]="rt"
           [inputFormatter]="formatter" (selectItem)="characterSelect($event, 2)"/>
     </div>
 

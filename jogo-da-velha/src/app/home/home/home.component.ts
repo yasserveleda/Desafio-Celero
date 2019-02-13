@@ -18,13 +18,13 @@ export class HomeComponent implements OnInit {
   endGame = true;
   selectedCharacters = false;
   gameTie = false;
+  listGetCharacters = [];
 
   // First Character
   firstCharacter;
   firstModelCharacter;
   firstSelected;
   firstImagePath;
-  firstListCharacter = [];
   firstScore = 0;
 
   // Second Character
@@ -32,39 +32,28 @@ export class HomeComponent implements OnInit {
   secondModelCharacter;
   secondSelected;
   secondImagePath;
-  secondListCharacter = [];
   secondScore = 0;
-
-  // listGetCharacters = [];
-  // modelCharacter;
 
   constructor(private homeService: HomeService) { }
 
   ngOnInit() { }
 
-  search_1 = (text$: Observable<string>) =>
+  search = (text$: Observable<string>) =>
     text$.pipe(
       tap(() => {
-        if (this.firstModelCharacter && this.firstModelCharacter.length >= 2) {
-          this.getCharacters(this.firstModelCharacter, 1);
-        }
-      }),
-      debounceTime(500),
-      map(term => term === '' ? []
-        : this.firstListCharacter.filter(v => v.name))
-    )
+        const character_1 = this.firstModelCharacter;
+        const character_2 = this.secondModelCharacter;
 
-  search_2 = (text$: Observable<string>) =>
-    text$.pipe(
-      tap(() => {
-        if (this.secondModelCharacter && this.secondModelCharacter.length >= 2) {
-          this.getCharacters(this.secondModelCharacter, 2);
+        if (character_1 && character_1.length >= 2) {
+          this.getCharacters(character_1, 1);
+        } else if (character_2 && character_2.length >= 2) {
+          this.getCharacters(character_2, 2);
         }
       }),
       debounceTime(500),
       map(term => term === '' ? []
-        : this.secondListCharacter.filter(v => v.name))
-  )
+        : this.listGetCharacters.filter(v => v.name))
+    )
 
   formatter = (x: {name: string}) => x.name;
 
@@ -74,13 +63,12 @@ export class HomeComponent implements OnInit {
         this.firstCharacter = event.item;
         this.firstSelected = true;
         this.firstImagePath = `${this.firstCharacter.thumbnail.path}.${this.firstCharacter.thumbnail.extension}`;
-        this.firstListCharacter = [];
       } else {
         this.secondCharacter = event.item;
         this.secondSelected = true;
         this.secondImagePath = `${this.secondCharacter.thumbnail.path}.${this.secondCharacter.thumbnail.extension}`;
-        this.secondListCharacter = [];
       }
+      this.listGetCharacters = [];
 
       if (this.firstCharacter && this.secondCharacter) {
         this.selectedCharacters = true;
@@ -117,11 +105,7 @@ export class HomeComponent implements OnInit {
     this.homeService.getCharacters(name).subscribe(
       response => {
         const responseList = response.data.results;
-        if (numberList === 1) {
-          this.firstListCharacter = responseList;
-        } else {
-          this.secondListCharacter = responseList;
-        }
+        this.listGetCharacters = responseList;
       },
       error => {
         console.log(error);
@@ -176,7 +160,7 @@ export class HomeComponent implements OnInit {
         busyHouses++;
       }
     }
-    return busyHouses === 9 ? true : false;
+    return busyHouses === 9;
   }
 
 }
