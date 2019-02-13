@@ -1,7 +1,14 @@
+#background-game {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-image: url(https://tedxzurich.com/wp-content/uploads/2016/03/xX2GRj6-1024x576.gif);
+}
+
 #header-game {
     width: 100%;
     min-height: 200px;
-    background: #cccccc;
+    // background: #cccccc;
 
     #scoreboard {
         display: flex;
@@ -47,18 +54,13 @@
         }
     }
 
-    // background-image: url(http://www.jeffstyle.com/img/work/portfolio-marvel_com-bg.gif);
-    // background-size: 400px;
+}
 
-}
-#background-game {
-    // background-image: url(http://lukedowding.com/wp-content/uploads/stars.jpg);
-}
 #game {
     width:452px;
     height:450px;
     border: 1px solid;
-    margin: 50px auto;
+    margin: 30px auto;
 
     .cell-row{
         height:150px;
@@ -69,8 +71,11 @@
             height:100%;
             border: 1px solid;
             float:left;
-            background-size: 150px;
+            background-size: 150px !important;
             cursor: pointer;
+
+            background: #BAC3FB;
+            opacity: 0.5;
         }
     }
 }
