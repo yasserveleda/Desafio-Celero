@@ -1,68 +1,69 @@
 <div id="background-game">
-    <div id="header-game" class="">
-        <div id="scoreboard" class="container-fluid pt-3 pb-3">
-          <div class="col-md-4 character-score"> 
-              <div class="card-c" *ngIf="firstSelected">
-                  <img class="character rounded-circle" *ngIf="firstSelected" [(src)]="firstImagePath">
-                  <h5 class="mt-3 text-white" *ngIf="firstSelected"> {{ firstCharacter.name }} </h5>
-              </div>
-      
-              <ng-template #rt let-r="result" let-t="term">
-                <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-              </ng-template>
+  <div id="mask"> </div>
+  <div id="header-game" class="">
+      <div id="scoreboard" class="container-fluid pt-3 pb-3">
+        <div class="col-md-4 character-score"> 
+            <div class="card-c" *ngIf="firstSelected">
+                <img class="character rounded-circle" *ngIf="firstSelected" [(src)]="firstImagePath">
+                <h5 class="mt-3 text-white" *ngIf="firstSelected"> {{ firstCharacter.name }} </h5>
+            </div>
+    
+            <ng-template #rt let-r="result" let-t="term">
+              <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+            </ng-template>
+            
+            <input id="typeahead-template" placeholder="Digite o nome: Iron man, Wolverine ..." type="text" class="form-control mt-5" *ngIf="!firstSelected" [(ngModel)]="firstModelCharacter" [ngbTypeahead]="search" [resultTemplate]="rt"
+              [inputFormatter]="formatter" (selectItem)="characterSelect($event, 1)"/>
+        </div>
+    
+        <div class="col-md-3 score text-center"> 
+          <p class="text-white"> {{ firstScore }} </p>
+          <img src="https://images.vexels.com/media/users/3/155481/isolated/preview/622b56964a549b765dcaa8652b08ea87---cone-de-rabisco-de-marca-x-by-vexels.png" alt="">
+          <p class="text-white"> {{ secondScore }} </p>
+        </div>
+    
+        <div class="col-md-4 character-score"> 
+            <div class="card-c" *ngIf="secondSelected">
+              <img class="character rounded-circle" *ngIf="secondSelected" [(src)]="secondImagePath">
+              <h5 class="mt-3 text-white" *ngIf="secondSelected"> {{ secondCharacter.name }} </h5>
+            </div>
+            <ng-template #rt let-r="result" let-t="term">
+              <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+            </ng-template>
               
-              <input id="typeahead-template" placeholder="Digite o nome: Iron man, Wolverine ..." type="text" class="form-control mt-5" *ngIf="!firstSelected" [(ngModel)]="firstModelCharacter" [ngbTypeahead]="search" [resultTemplate]="rt"
-                [inputFormatter]="formatter" (selectItem)="characterSelect($event, 1)"/>
-          </div>
-      
-          <div class="col-md-3 score text-center"> 
-            <p class="text-white"> {{ firstScore }} </p>
-            <img src="https://images.vexels.com/media/users/3/155481/isolated/preview/622b56964a549b765dcaa8652b08ea87---cone-de-rabisco-de-marca-x-by-vexels.png" alt="">
-            <p class="text-white"> {{ secondScore }} </p>
-          </div>
-      
-          <div class="col-md-4 character-score"> 
-              <div class="card-c" *ngIf="secondSelected">
-                <img class="character rounded-circle" *ngIf="secondSelected" [(src)]="secondImagePath">
-                <h5 class="mt-3 text-white" *ngIf="secondSelected"> {{ secondCharacter.name }} </h5>
-              </div>
-              <ng-template #rt let-r="result" let-t="term">
-                <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-              </ng-template>
-                
-              <input id="typeahead-template" placeholder="Digite o nome: Iron man, Wolverine ..." type="text" class="form-control mt-5" *ngIf="!secondSelected" [(ngModel)]="secondModelCharacter" [ngbTypeahead]="search" [resultTemplate]="rt"
-                [inputFormatter]="formatter" (selectItem)="characterSelect($event, 2)"/>
-          </div>
-      
+            <input id="typeahead-template" placeholder="Digite o nome: Iron man, Wolverine ..." type="text" class="form-control mt-5" *ngIf="!secondSelected" [(ngModel)]="secondModelCharacter" [ngbTypeahead]="search" [resultTemplate]="rt"
+              [inputFormatter]="formatter" (selectItem)="characterSelect($event, 2)"/>
         </div>
+    
       </div>
-
-    <div class="col-md-12 text-center">
-      <h4 *ngIf="!selectedCharacters" id="resultado" class="text-white"> Faça a busca de seus personagens Marvel para iniciar a partida!</h4>
-      <h4 *ngIf="endGame && selectedCharacters && !gameTie" id="resultado" class="text-white"> Parabéns {{ winner.name }}, você venceu a partida!</h4>
-      <h4 *ngIf="endGame && gameTie" class="text-white"> Ops, ocorreu empate na partida!</h4>
-    </div>
-    <div class="col-md-12 text-center mt-4 mb-4">
-      <button *ngIf="endGame && selectedCharacters" class="btn btn-primary" (click)="newGame();"> Reiniciar Partida </button>
     </div>
 
-    <div id="game">
-        <div class="cell-row">
-            <div class="cell" id="1" square="1"></div>
-            <div class="cell" id="2" square="2"></div>
-            <div class="cell" id="3" square="3"></div>
-        </div>
-        <div class="cell-row">
-            <div class="cell" id="4"></div>
-            <div class="cell" id="5"></div>
-            <div class="cell" id="6"></div>
-        </div>
-        <div class="cell-row">
-            <div class="cell" id="7"></div>
-            <div class="cell" id="8"></div>
-            <div class="cell" id="9"></div>
-        </div>
-    </div>
+  <div class="col-md-12 text-center">
+    <h4 *ngIf="!selectedCharacters" id="resultado" class="text-white"> Faça a busca de seus personagens Marvel para iniciar a partida!</h4>
+    <h4 *ngIf="endGame && selectedCharacters && !gameTie" id="resultado" class="text-white"> Parabéns {{ winner.name }}, você venceu a partida!</h4>
+    <h4 *ngIf="endGame && gameTie" class="text-white"> Ops, ocorreu empate na partida!</h4>
+  </div>
+  <div class="col-md-12 text-center mt-4 mb-4">
+    <button *ngIf="endGame && selectedCharacters" class="btn btn-primary" (click)="newGame();"> Reiniciar Partida </button>
+  </div>
+
+  <div id="game" class="shadow-lg">
+      <div class="cell-row">
+          <div class="cell" id="1" square="1"></div>
+          <div class="cell" id="2" square="2"></div>
+          <div class="cell" id="3" square="3"></div>
+      </div>
+      <div class="cell-row">
+          <div class="cell" id="4"></div>
+          <div class="cell" id="5"></div>
+          <div class="cell" id="6"></div>
+      </div>
+      <div class="cell-row">
+          <div class="cell" id="7"></div>
+          <div class="cell" id="8"></div>
+          <div class="cell" id="9"></div>
+      </div>
+  </div>
 </div>
 
 

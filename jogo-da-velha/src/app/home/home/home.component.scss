@@ -2,7 +2,17 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    background-image: url(https://tedxzurich.com/wp-content/uploads/2016/03/xX2GRj6-1024x576.gif);
+    // background-image: url(https://tedxzurich.com/wp-content/uploads/2016/03/xX2GRj6-1024x576.gif);
+    background-image: url(https://www.pixelstalk.net/wp-content/uploads/2016/07/HD-Marvel-Movies-Iphone-Background.jpg);
+    background-size: 100%;
+
+    #mask {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: black;
+        opacity: 0.3;
+    }
 }
 
 #header-game {
@@ -74,8 +84,8 @@
             background-size: 150px !important;
             cursor: pointer;
 
-            background: #BAC3FB;
-            opacity: 0.5;
+            background: #577591;
+            opacity: 0.9;
         }
     }
 }
