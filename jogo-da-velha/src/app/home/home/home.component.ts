@@ -8,7 +8,7 @@ import {debounceTime, map, tap} from 'rxjs/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   characters: any[];
   img_1 = `./assets/img/1.png`;
   img_2 = `./assets/img/2.png`;
@@ -34,9 +34,9 @@ export class HomeComponent implements OnInit {
   secondImagePath;
   secondScore = 0;
 
-  constructor(private homeService: HomeService) { }
-
-  ngOnInit() { }
+  constructor(private homeService: HomeService) {
+    this.selectPlayer();
+  }
 
   search = (text$: Observable<string>) =>
     text$.pipe(
@@ -142,7 +142,7 @@ export class HomeComponent implements OnInit {
   }
 
   newGame() {
-    this.player = 1;
+    this.selectPlayer();
     this.board = [];
     this.winner = null;
     this.endGame = false;
@@ -161,6 +161,10 @@ export class HomeComponent implements OnInit {
       }
     }
     return busyHouses === 9;
+  }
+
+  selectPlayer() {
+    this.player = Math.floor(Math.random() * 2) + 1;
   }
 
 }
