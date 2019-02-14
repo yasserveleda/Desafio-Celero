@@ -19,6 +19,7 @@ export class HomeComponent {
   selectedCharacters = false;
   gameTie = false;
   listGetCharacters = [];
+  spinner = false;
 
   // First Character
   firstCharacter;
@@ -43,10 +44,11 @@ export class HomeComponent {
       tap(() => {
         const character_1 = this.firstModelCharacter;
         const character_2 = this.secondModelCharacter;
+        this.spinner = true;
 
-        if (character_1 && character_1.length >= 2) {
+        if (character_1 && character_1.length >= 1) {
           this.getCharacters(character_1, 1);
-        } else if (character_2 && character_2.length >= 2) {
+        } else if (character_2 && character_2.length >= 1) {
           this.getCharacters(character_2, 2);
         }
       }),
@@ -106,6 +108,7 @@ export class HomeComponent {
       response => {
         const responseList = response.data.results;
         this.listGetCharacters = responseList;
+        this.spinner = false;
       },
       error => {
         console.log(error);

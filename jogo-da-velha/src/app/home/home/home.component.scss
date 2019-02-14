@@ -57,6 +57,11 @@
                 transform: rotate(16deg); 
                 margin-top: 25px;
             }
+
+            .row > .spinner > img {
+                height: 40px; 
+                margin-top: 25px;
+            }
         }
 
         .score {
@@ -76,7 +81,6 @@
     }
 
 }
-
 #game {
     width:452px;
     height:450px;

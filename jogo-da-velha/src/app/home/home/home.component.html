@@ -14,6 +14,13 @@
             
             <input id="typeahead-template" placeholder="Digite o nome: Iron man, Wolverine ..." type="text" class="form-control mt-5" *ngIf="!firstSelected" [(ngModel)]="firstModelCharacter" [ngbTypeahead]="search" [resultTemplate]="rt"
               [inputFormatter]="formatter" (selectItem)="characterSelect($event, 1)"/>
+              
+            <div class="row text-center">
+              <div *ngIf="firstModelCharacter && firstModelCharacter.length >=1 " class="spinner col-md-12">
+                  <img *ngIf="spinner" src="/assets/img/spinner.gif">
+              </div>
+            </div>
+              
         </div>
     
         <div class="col-md-3 score text-center"> 
@@ -35,6 +42,12 @@
               
             <input id="typeahead-template" placeholder="Digite o nome: Iron man, Wolverine ..." type="text" class="form-control mt-5" *ngIf="!secondSelected" [(ngModel)]="secondModelCharacter" [ngbTypeahead]="search" [resultTemplate]="rt"
               [inputFormatter]="formatter" (selectItem)="characterSelect($event, 2)"/>
+
+            <div class="row text-center">
+              <div *ngIf="secondModelCharacter && secondModelCharacter.length >=1 " class="spinner col-md-12">
+                  <img *ngIf="spinner" src="/assets/img/spinner.gif">
+              </div>
+            </div>
         </div>
     
       </div>
