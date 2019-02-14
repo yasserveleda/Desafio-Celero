@@ -7,7 +7,7 @@
                 <img class="character rounded-circle" *ngIf="firstSelected" [(src)]="firstImagePath">
                 <h5 class="mt-3 text-white" *ngIf="firstSelected"> {{ firstCharacter.name }} </h5>
             </div>
-            <img *ngIf="selectedCharacters && player == 1 && !endGame" src="/assets/img/seta-e.png" style="height: 130px; transform: rotate(30deg);">
+            <img id="arrow-left" *ngIf="selectedCharacters && player == 1 && !endGame" src="/assets/img/seta-e.png">
             <ng-template #rt let-r="result" let-t="term">
               <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
             </ng-template>
@@ -27,7 +27,7 @@
               <img class="character rounded-circle" *ngIf="secondSelected" [(src)]="secondImagePath">
               <h5 class="mt-3 text-white" *ngIf="secondSelected"> {{ secondCharacter.name }} </h5>
             </div>
-            <img *ngIf="selectedCharacters && player == 2 && !endGame" src="/assets/img/seta-d.png" style="height: 100px; transform: rotate(16deg); margin-top: 25px;">
+            <img id="arrow-right" *ngIf="selectedCharacters && player == 2 && !endGame" src="/assets/img/seta-d.png">
 
             <ng-template #rt let-r="result" let-t="term">
               <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>

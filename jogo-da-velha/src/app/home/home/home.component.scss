@@ -46,6 +46,17 @@
                     color:#2C2C2C;               
                 }
             }
+
+            #arrow-left {
+                height: 130px; 
+                transform: rotate(30deg);
+            }
+
+            #arrow-right {
+                height: 100px; 
+                transform: rotate(16deg); 
+                margin-top: 25px;
+            }
         }
 
         .score {
